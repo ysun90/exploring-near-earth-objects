@@ -121,7 +121,7 @@ class NEODatabase:
         """
         # TODO: Generate `CloseApproach` objects that match all of the filters.
 
-        if filter == ():
+        if filters == ():
             return self._approaches
 
         matches = []

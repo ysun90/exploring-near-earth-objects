@@ -84,6 +84,7 @@ class NearEarthObject:
 
     def serialize(self):
         """Produce a dictionary containing relevant attributes for CSV or JSON serialization."""
+        d = {}
         d['designation'] = self.designation
         d['name'] = self.name
         d['diameter_km'] = self.diameter
@@ -159,6 +160,7 @@ class CloseApproach:
 
     def serialize(self):
         """Produce a dictionary containing relevant attributes for CSV or JSON serialization."""
+        d = {}
         d['datetime_utc'] = datetime_to_str(self.time)
         d['distance_au'] = self.distance
         d['velocity_km_s'] = self.velocity

@@ -33,15 +33,22 @@ class NearEarthObject:
     `NEODatabase` constructor.
     """
 
-    def __init__(self, designation='', name=None, diameter=float('nan'), hazardous=False):
+    def __init__(self,
+                 designation='', name=None,
+                 diameter=float('nan'), hazardous=False):
         """Create a new `NearEarthObject`.
 
         :param info:
-            designation: The primary designation for this NearEarthObject.
-            name: The IAU name for this NearEarthObject.
-            diameter: The diameter, in kilometers, of this NearEarthObject.
-            hazardous: Whether or not this NearEarthObject is potentially hazardous.
-            approaches: A collection of this NearEarthObjects close approaches to Earth.
+            designation:
+                The primary designation for this NearEarthObject.
+            name:
+                The IAU name for this NearEarthObject.
+            diameter:
+                The diameter, in kilometers, of this NearEarthObject.
+            hazardous:
+                Whether or not this NearEarthObject is potentially hazardous.
+            approaches:
+                A collection of this NearEarthObjects close approaches to Earth.
         """
 
         self.designation = designation
@@ -55,17 +62,20 @@ class NearEarthObject:
         # Handle empty string
         try:
             self.diameter = float(diameter)
-        except:
+        except ValueError:
             self.diameter = float('nan')
 
         # True for 'Y', False for 'N' or missing
-        self.hazardous = (hazardous=='Y')
+        self.hazardous = (hazardous == 'Y')
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []
 
     def serialize(self):
-        """Produce a dictionary containing relevant attributes for CSV or JSON serialization."""
+        """
+        Produce a dictionary containing relevant attributes
+        for CSV or JSON serialization.
+        """
         d = {}
         d['designation'] = self.designation
         d['name'] = self.name
@@ -80,15 +90,14 @@ class NearEarthObject:
 
     def __str__(self):
         """Return `str(self)`."""
-        h = 'is' if self.hazardous == True else 'is not'
-        return f"NEO {self.fullname} has a diameter of {self.diameter:.3f} km and {h} potentially hazardous."
+        h = 'is' if self.hazardous is True else 'is not'
+        return f"NEO {self.fullname} has a diameter of {self.diameter:.3f} km \
+                 and {h} potentially hazardous."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
         return (f"NearEarthObject(designation={self.designation!r}, name={self.name!r}, "
                 f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})")
-
-
 
 
 class CloseApproach:
@@ -109,23 +118,25 @@ class CloseApproach:
         """Create a new `CloseApproach`.
 
         :param info:
-            time: The date and time, in UTC, at which the NEO passes closest to Earth.
-            distance: The nominal approach distance, in astronomical units, of the NEO to Earth at the closest point.
+            time:
+                The date and time, in UTC, at which the NEO passes closest to Earth.
+            distance:
+                The nominal approach distance, in astronomical units, of the NEO to Earth at the closest point.
             velocity: The velocity, in kilometers per second, of the NEO relative to Earth at the closest point.
             neo: The NearEarthObject that is making a close approach to Earth.
         """
 
-        self._designation = designation # string
-        self.time = cd_to_datetime(time) # datetime
+        self._designation = designation  # string
+        self.time = cd_to_datetime(time)  # datetime
 
         try:
             self.distance = float(distance)
-        except:
+        except ValueError:
             self.distance = float('nan')
 
         try:
             self.velocity = float(velocity)
-        except:
+        except ValueError:
             self.velocity = float('nan')
 
         # Create an attribute for the referenced NEO, originally None.
@@ -148,7 +159,9 @@ class CloseApproach:
 
     def __str__(self):
         """Return `str(self)`."""
-        return f"On {self.time_str}, '{self.neo.fullname}' approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s."
+        return f"On {self.time_str}, '{self.neo.fullname}' approaches Earth \
+                 at a distance of {self.distance:.2f} au \
+                 and a velocity of {self.velocity:.2f} km/s."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""

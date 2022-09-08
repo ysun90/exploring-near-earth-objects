@@ -12,6 +12,7 @@ data on NEOs and close approaches extracted by `extract.load_neos` and
 You'll edit this file in Tasks 2 and 3.
 """
 
+
 class NEODatabase:
     """A database of near-Earth objects and their close approaches.
 
@@ -57,7 +58,6 @@ class NEODatabase:
                 if neo.name not in self.name_map:
                     self.name_map[neo.name] = []
                 self.name_map[neo.name].append(neo)
-
 
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.

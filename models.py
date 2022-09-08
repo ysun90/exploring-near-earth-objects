@@ -53,10 +53,10 @@ class NearEarthObject:
             self.name = name
 
         # Handle empty string
-        if diameter == '':
-            self.diameter = float('nan')
-        else:
+        try:
             self.diameter = float(diameter)
+        except:
+            self.diameter = float('nan')
 
         # True for 'Y', False for 'N' or missing
         self.hazardous = (hazardous=='Y')
@@ -116,9 +116,17 @@ class CloseApproach:
         """
 
         self._designation = designation # string
-        self.time = cd_to_datetime(time) # datatime
-        self.distance = float(distance) # float
-        self.velocity = float(velocity) # float
+        self.time = cd_to_datetime(time) # datetime
+
+        try:
+            self.distance = float(distance)
+        except:
+            self.distance = float('nan')
+
+        try:
+            self.velocity = float(velocity)
+        except:
+            self.velocity = float('nan')
 
         # Create an attribute for the referenced NEO, originally None.
         self.neo = neo

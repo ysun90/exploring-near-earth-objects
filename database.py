@@ -40,30 +40,23 @@ class NEODatabase:
         """
         self._neos = neos
         self._approaches = approaches
+        self.des_map = {}
+        self.name_map = {}
 
-        # TODO: What additional auxiliary data structures will be useful?
-
-        # TODO: Link together the NEOs and their close approaches.
-
-        # Linking
+        # Linking each NearEarthObject and CloseApproach
         for neo in self._neos:
             for approach in self._approaches:
                 if neo.designation == approach._designation:
                     neo.approaches.append(approach)
                     approach.neo = neo
 
-        # Designation and name mapping
-        des_map, name_map = {}, {}
-
+        # Designation and name mapping for speeding up
         for neo in self._neos:
-            des_map[neo.designation] = [neo]
+            self.des_map[neo.designation] = [neo]
             if neo.name:
-                if neo.name not in name_map:
-                    name_map[neo.name] = []
-                name_map[neo.name].append(neo)
-
-        self.des_map = des_map
-        self.name_map = name_map
+                if neo.name not in self.name_map:
+                    self.name_map[neo.name] = []
+                self.name_map[neo.name].append(neo)
 
 
     def get_neo_by_designation(self, designation):
@@ -79,7 +72,6 @@ class NEODatabase:
         :param designation: The primary designation of the NEO to search for.
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
-        # TODO: Fetch an NEO by its primary designation.
         if designation not in self.des_map:
             return None
         else:
@@ -99,7 +91,6 @@ class NEODatabase:
         :param name: The name, as a string, of the NEO to search for.
         :return: The `NearEarthObject` with the desired name, or `None`.
         """
-        # TODO: Fetch an NEO by its name.
         if name not in self.name_map:
             return None
         else:
@@ -119,8 +110,6 @@ class NEODatabase:
         :param filters: A collection of filters capturing user-specified criteria.
         :return: A stream of matching `CloseApproach` objects.
         """
-        # TODO: Generate `CloseApproach` objects that match all of the filters.
-
         if filters == ():
             return self._approaches
 

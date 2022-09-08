@@ -28,10 +28,8 @@ def load_neos(neo_csv_path):
     with open(neo_csv_path, 'r') as infile:
         reader = csv.DictReader(infile)
         for line in reader:
-            neo = NearEarthObject(designation=line['pdes'],
-                                  name=line['name'],
-                                  diameter=line['diameter'],
-                                  hazardous=line['pha'])
+            args = (line['pdes'], line['name'], line['diameter'], line['pha'])
+            neo = NearEarthObject(*args)
             neos.append(neo)
     return neos
 

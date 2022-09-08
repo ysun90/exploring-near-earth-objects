@@ -146,35 +146,35 @@ def create_filters(date=None, start_date=None, end_date=None,
         filters.append(date_filter)
 
     if start_date is not None:
-        start_date_filter = DateFilter(operator.gt, start_date)
+        start_date_filter = DateFilter(operator.ge, start_date)
         filters.append(start_date_filter)
 
     if end_date is not None:
-        end_date_filter = DateFilter(operator.gt, end_date)
+        end_date_filter = DateFilter(operator.le, end_date)
         filters.append(end_date_filter)
 
     if distance_min is not None:
-        dis_min_filter = DistanceFilter(operator.gt, float(distance_min))
+        dis_min_filter = DistanceFilter(operator.ge, float(distance_min))
         filters.append(dis_min_filter)
 
     if distance_max is not None:
-        dis_max_filter = DistanceFilter(operator.lt, float(distance_max))
+        dis_max_filter = DistanceFilter(operator.le, float(distance_max))
         filters.append(dis_max_filter)
 
     if velocity_min is not None:
-        vel_min_filter = VelocityFilter(operator.gt, float(velocity_min))
+        vel_min_filter = VelocityFilter(operator.ge, float(velocity_min))
         filters.append(vel_min_filter)
 
     if velocity_max is not None:
-        vel_max_filter = VelocityFilter(operator.lt, float(velocity_max))
+        vel_max_filter = VelocityFilter(operator.le, float(velocity_max))
         filters.append(vel_max_filter)
 
     if diameter_min is not None:
-        dia_min_filter = DiameterFilter(operator.gt, float(diameter_min))
+        dia_min_filter = DiameterFilter(operator.ge, float(diameter_min))
         filters.append(dia_min_filter)
 
     if diameter_max is not None:
-        dia_max_filter = DiameterFilter(operator.lt, float(diameter_max))
+        dia_max_filter = DiameterFilter(operator.le, float(diameter_max))
         filters.append(dia_max_filter)
 
     if (hazardous is True) or (hazardous is False):

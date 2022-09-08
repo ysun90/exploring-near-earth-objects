@@ -124,8 +124,8 @@ class NEODatabase:
         if filters == ():
             return self._approaches
 
-        matches = []
         for approach in self._approaches:
+            matches = []
             for filter in filters:
                 matches.append(filter(approach))
             if all(matches):

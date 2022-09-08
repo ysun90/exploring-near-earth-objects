@@ -30,7 +30,7 @@ def write_to_csv(results, filename):
         writer = csv.DictWriter(outfile, fieldnames=fieldnames)
         writer.writeheader()
         for approach in results:
-            row = approach.serialize() | approach.neo.serialize()
+            row = {**approach.serialize(), **approach.neo.serialize()}
             writer.writerow(row)
 
 

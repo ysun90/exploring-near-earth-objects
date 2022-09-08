@@ -21,7 +21,8 @@ from helpers import cd_to_datetime, datetime_to_str
 
 
 class NearEarthObject:
-    """A near-Earth object (NEO).
+    """
+    A near-Earth object (NEO).
 
     An NEO encapsulates semantic and physical parameters about the object, such
     as its primary designation (required, unique), IAU name (optional), diameter
@@ -50,7 +51,6 @@ class NearEarthObject:
             approaches:
                 A collection of this NearEarthObjects close approaches to Earth.
         """
-
         self.designation = designation
 
         # Handle empty string
@@ -72,10 +72,7 @@ class NearEarthObject:
         self.approaches = []
 
     def serialize(self):
-        """
-        Produce a dictionary containing relevant attributes
-        for CSV or JSON serialization.
-        """
+        """Produce a dictionary containing relevant attributes for CSV or JSON serialization."""
         d = {}
         d['designation'] = self.designation
         d['name'] = self.name
@@ -125,7 +122,6 @@ class CloseApproach:
             velocity: The velocity, in kilometers per second, of the NEO relative to Earth at the closest point.
             neo: The NearEarthObject that is making a close approach to Earth.
         """
-
         self._designation = designation  # string
         self.time = cd_to_datetime(time)  # datetime
 

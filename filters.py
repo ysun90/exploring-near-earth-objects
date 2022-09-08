@@ -39,6 +39,7 @@ class AttributeFilter:
     Concrete subclasses can override the `get` classmethod to provide custom
     behavior to fetch a desired attribute from the given `CloseApproach`.
     """
+
     def __init__(self, op, value):
         """Construct a new `AttributeFilter` from an binary predicate and a reference value.
 
@@ -70,36 +71,52 @@ class AttributeFilter:
         raise UnsupportedCriterionError
 
     def __repr__(self):
+        """Return `repr(self)`, a computer-readable string representation of this object."""
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
 
 class DateFilter(AttributeFilter):
+    """A class for filters on date."""
+
     @classmethod
     def get(cls, approach):
+        """Get date from a close approach."""
         return approach.time.date()
 
 
 class DistanceFilter(AttributeFilter):
+    """A class for filters on distance."""
+
     @classmethod
     def get(cls, approach):
+        """Get distance from a close approach."""
         return approach.distance
 
 
 class VelocityFilter(AttributeFilter):
+    """A class for filters on velocity."""
+
     @classmethod
     def get(cls, approach):
+        """Get velocity from a close approach."""
         return approach.velocity
 
 
 class DiameterFilter(AttributeFilter):
+    """A class for filters on diameter."""
+
     @classmethod
     def get(cls, approach):
+        """Get diameter from the neo attribute of close approach."""
         return approach.neo.diameter
 
 
 class HazardousFilter(AttributeFilter):
+    """A class for filters on weather a close approach is hazardous."""
+
     @classmethod
     def get(cls, approach):
+        """Get hazardous state from the neo attribute of a close approach."""
         return approach.neo.hazardous
 
 
@@ -137,7 +154,6 @@ def create_filters(date=None, start_date=None, end_date=None,
     :param hazardous: Whether the NEO of a matching `CloseApproach` is potentially hazardous.
     :return: A collection of filters for use with `query`.
     """
-
     filters = []
 
     if date is not None:
@@ -192,7 +208,7 @@ def limit(iterator, n=None):
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-    if (n is not 0) and (n is not None):
+    if (n != 0) and (n != None):
         return itertools.islice(iterator, n)
     else:
         return iterator
